@@ -1,12 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-
-export interface ServiceStatus {
-  service: string;
-  status: "success" | "error" | "running";
-  last_run: string;
-  message: string;
-  files_processed?: number;
-}
+import type { ServiceStatus } from "../types/ServiceStatus";
 
 interface ApiResponse {
   server: string;

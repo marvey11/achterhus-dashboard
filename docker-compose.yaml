@@ -1,0 +1,13 @@
+services:
+  dashboard-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dashboard-ui
+    restart: unless-stopped
+    networks:
+      - achterhus-network
+
+networks:
+  achterhus-network:
+    external: true

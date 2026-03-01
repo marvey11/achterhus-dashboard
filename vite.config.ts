@@ -1,12 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      '/api': 'http://192.168.178.40'
-    }
-  }
-})
+  base: "/dashboard/",
+  build: {
+    // 1. Ensure the build folder is cleared before every build
+    emptyOutDir: true,
+    // 2. Control how assets are named (default is usually fine, but being explicit is safer)
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/[name]-[hash].js`,
+        chunkFileNames: `assets/[name]-[hash].js`,
+        assetFileNames: `assets/[name]-[hash].[ext]`,
+      },
+    },
+  },
+});

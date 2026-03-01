@@ -1,4 +1,6 @@
 {
   "singleQuote": false,
-  "plugins": []
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ]
 }

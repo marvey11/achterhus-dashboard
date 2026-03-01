@@ -1,1 +1,1 @@
-export type { ServiceStatus } from "./ServiceStatus";
+export type { ServiceMetadata, ServiceStatus } from "./ServiceStatus";

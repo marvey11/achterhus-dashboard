@@ -1,4 +1,4 @@
-import type { ServiceStatus } from "../types";
+import type { ServiceMetadata, ServiceStatus } from "../types";
 
 const STALE_THRESHOLD_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -29,9 +29,9 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
 
   return (
     <div
-      className={`p-4 rounded-xl border transition-all hover:scale-[1.02] ${currentStyle}`}
+      className={`rounded-xl border p-4 transition-all hover:scale-[1.02] ${currentStyle}`}
     >
-      <div className="flex justify-between items-start">
+      <div className="flex items-start justify-between">
         <div>
           <h3 className="text-lg font-semibold text-neutral-900 capitalize">
             {service.service.replace(/-/g, " ")}
@@ -45,10 +45,36 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
         </div>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-white/10 flex justify-between items-center text-[10px] uppercase tracking-wider">
+      <MetadataGrid metadata={service.metadata} />
+
+      <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] tracking-wider uppercase">
         <span>Last Update</span>
         <span>{new Date(service.timestamp).toLocaleTimeString()}</span>
       </div>
+    </div>
+  );
+};
+
+const MetadataGrid = ({
+  metadata,
+}: {
+  metadata?: Record<string, ServiceMetadata>;
+}) => {
+  if (!metadata) return null;
+
+  return (
+    <div className="mt-4 grid grid-cols-2 gap-2 border-t border-white/5 pt-4">
+      {Object.entries(metadata).map(([key, item]) => (
+        <div key={key} className="flex flex-col">
+          <span className="text-[10px] font-medium text-neutral-500 uppercase">
+            {item.label}
+          </span>
+          <span className="font-mono text-sm text-neutral-800">
+            {item.value}
+            {item.unit || ""}
+          </span>
+        </div>
+      ))}
     </div>
   );
 };
